@@ -21,10 +21,27 @@ double lastY = 0;
 ofstream csvFile;
 
 
+double xposi, yposi;
+
+
 void updateFPS(GLFWwindow* window) {
     
+    glfwGetCursorPos(window, &xposi, &yposi);
+
     nbFrames++;
     currentTime = glfwGetTime();
+
+    csvFile << currentFrame << "frame,";
+    csvFile << xposi << "x,";
+    csvFile << yposi << "y,";
+    csvFile << xposi - lastX << "deltax,";
+    csvFile << yposi - lastY << "deltay,";
+    csvFile << currentTime << "time,";
+    csvFile << "\n";
+
+    lastX = xposi;
+    lastY = yposi;
+
     
     if (currentTime - lastTime >= 1.0) {
         
@@ -36,11 +53,11 @@ void updateFPS(GLFWwindow* window) {
 double lastMouseTime = 0;
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
-    printf("Mouse Position: (%f, %f)\n", xpos, ypos);
+    //printf("Mouse Position: (%f, %f)\n", xpos, ypos);
     
     //lastMouseTime = glfwGetTime();
 
-    csvFile<<currentFrame<<",";
+    /*csvFile<<currentFrame<<",";
     csvFile << xpos<<"," ;
     csvFile << ypos<<",";
     csvFile << xpos-lastX << ",";
@@ -48,7 +65,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
     csvFile << "\n";
 
     lastX = xpos;
-    lastY = ypos;
+    lastY = ypos;*/
     
 }
 
