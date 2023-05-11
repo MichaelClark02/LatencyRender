@@ -3,18 +3,21 @@
 #include <stdbool.h>
 #include <GLFW/glfw3.h>
 #include <Windows.h>
-#include <thread>
-#include <chrono>
+//#include <thread>
+//#include <chrono>
 //#include <nvToolsExt.h>
 //#include <cuda_profiler_api.h>
 
 
 double lastTime = 0;
 int nbFrames = 0;
+double currentTime = glfwGetTime();
 
 void updateFPS(GLFWwindow* window) {
-    double currentTime = glfwGetTime();
+    
     nbFrames++;
+    currentTime = glfwGetTime();
+
     if (currentTime - lastTime >= 1.0) {
         char title[256];
         snprintf(title, sizeof(title), "OpenGL Program | FPS: %d", nbFrames);
@@ -24,8 +27,9 @@ void updateFPS(GLFWwindow* window) {
     }
 }
 double lastMouseTime = 0;
+
 void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
-    printf("Mouse Position: (%f, %f, %f)\n", xpos, ypos, (glfwGetTime()-lastMouseTime)*1000);
+    printf("Mouse Position: (%f, %f, %f)\n", xpos, ypos, 1/(glfwGetTime()-lastMouseTime));
     lastMouseTime = glfwGetTime();
 }
 
@@ -41,6 +45,7 @@ int main() {
         fprintf(stderr, "Failed to initialize GLFW.\n");
         return EXIT_FAILURE;
     }
+    glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_FALSE);
 
     // Create a window and OpenGL context
     GLFWwindow* window = glfwCreateWindow(640, 480, "OpenGL Program", NULL, NULL);
@@ -49,6 +54,7 @@ int main() {
         glfwTerminate();
         return EXIT_FAILURE;
     }
+
     glfwMakeContextCurrent(window);
 
     // Register callback functions
@@ -66,13 +72,12 @@ int main() {
         updateFPS(window);
 
         // Clear the screen
-        glClear(GL_COLOR_BUFFER_BIT);
+        //glClear(GL_COLOR_BUFFER_BIT);
 
         // Draw graphics here
         // ...
-        Sleep(0);
         // Swap buffers
-        glfwSwapBuffers(window);
+        //glfwSwapBuffers(window);
 
         // Poll for events
         glfwPollEvents();
