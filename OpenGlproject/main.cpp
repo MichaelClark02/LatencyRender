@@ -3,15 +3,23 @@
 #include <stdbool.h>
 #include <GLFW/glfw3.h>
 #include <Windows.h>
-//#include <thread>
-//#include <chrono>
-//#include <nvToolsExt.h>
-//#include <cuda_profiler_api.h>
+#include <vector>
+#include <iostream>
+#include <fstream>
 
+
+
+using namespace std;
 
 double lastTime = 0;
 int nbFrames = 0;
+int currentFrame = 0;
 double currentTime = glfwGetTime();
+double lastX = 0;
+double lastY = 0;
+
+ofstream csvFile;
+
 
 void updateFPS(GLFWwindow* window) {
     
@@ -28,12 +36,25 @@ void updateFPS(GLFWwindow* window) {
 double lastMouseTime = 0;
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
-    //printf("Mouse Position: (%f, %f, %f)\n", xpos, ypos, 1/(glfwGetTime()-lastMouseTime));
+    printf("Mouse Position: (%f, %f)\n", xpos, ypos);
     
-    lastMouseTime = glfwGetTime();
+    //lastMouseTime = glfwGetTime();
+
+    csvFile<<currentFrame<<",";
+    csvFile << xpos<<"," ;
+    csvFile << ypos<<",";
+    csvFile << xpos-lastX << ",";
+    csvFile << ypos-lastY << ",";
+    csvFile << "\n";
+
+    lastX = xpos;
+    lastY = ypos;
+    
 }
 
 int main() {
+    csvFile.open("mouseFromProgram.csv");
+    
     // Initialize the profiler
     /*cudaProfilerStart();*/
 
@@ -81,9 +102,9 @@ int main() {
 
         // Poll for events
         glfwPollEvents();
-        //i++;
+        currentFrame++;
     }
-
+    csvFile.close();
     // Clean up
     glfwTerminate();
 
