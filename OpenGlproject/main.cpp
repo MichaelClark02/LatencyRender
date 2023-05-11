@@ -17,11 +17,10 @@ void updateFPS(GLFWwindow* window) {
     
     nbFrames++;
     currentTime = glfwGetTime();
-
+    
     if (currentTime - lastTime >= 1.0) {
-        char title[256];
-        snprintf(title, sizeof(title), "OpenGL Program | FPS: %d", nbFrames);
-        glfwSetWindowTitle(window, title);
+        
+        printf("fps: (%d)\n", nbFrames);
         nbFrames = 0;
         lastTime += 1.0;
     }
@@ -29,7 +28,8 @@ void updateFPS(GLFWwindow* window) {
 double lastMouseTime = 0;
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
-    printf("Mouse Position: (%f, %f, %f)\n", xpos, ypos, 1/(glfwGetTime()-lastMouseTime));
+    //printf("Mouse Position: (%f, %f, %f)\n", xpos, ypos, 1/(glfwGetTime()-lastMouseTime));
+    
     lastMouseTime = glfwGetTime();
 }
 
