@@ -54,30 +54,11 @@ double lastMouseTime = 0;
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
     //printf("Mouse Position: (%f, %f)\n", xpos, ypos);
-    
-    //lastMouseTime = glfwGetTime();
-
-    /*csvFile<<currentFrame<<",";
-    csvFile << xpos<<"," ;
-    csvFile << ypos<<",";
-    csvFile << xpos-lastX << ",";
-    csvFile << ypos-lastY << ",";
-    csvFile << "\n";
-
-    lastX = xpos;
-    lastY = ypos;*/
-    
 }
 
 int main() {
     csvFile.open("mouseFromProgram.csv");
     
-    // Initialize the profiler
-    /*cudaProfilerStart();*/
-
-    // Enable profiling for the main thread
-    //nvtxRangePushA("Main Thread");
-
     // Initialize GLFW
     if (!glfwInit()) {
         fprintf(stderr, "Failed to initialize GLFW.\n");
@@ -102,21 +83,11 @@ int main() {
     glfwSwapInterval(0);
 
     // Loop until the user closes the window
-    //int i = 0;
-    //double time1 = glfwGetTime();*/
+
     while (!glfwWindowShouldClose(window)) {
-    //while(i<50000){
-        // Calculate FPS
+        // Calculate FPS and update csvFile
         updateFPS(window);
-
-        // Clear the screen
-        //glClear(GL_COLOR_BUFFER_BIT);
-
-        // Draw graphics here
-        // ...
-        // Swap buffers
-        //glfwSwapBuffers(window);
-
+   
         // Poll for events
         glfwPollEvents();
         currentFrame++;
@@ -124,12 +95,6 @@ int main() {
     csvFile.close();
     // Clean up
     glfwTerminate();
-
-    // Disable profiling for the main thread
-    //nvtxRangePop();
-    /*cudaProfilerStop();*/
-    /*double time2 = glfwGetTime();
-    printf("\n\n\n%f\n\n\n", time2 - time1);*/
 
     return EXIT_SUCCESS;
 }
