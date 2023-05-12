@@ -31,12 +31,12 @@ void updateFPS(GLFWwindow* window) {
     nbFrames++;
     currentTime = glfwGetTime();
 
-    csvFile << currentFrame << "frame,";
-    csvFile << xposi << "x,";
-    csvFile << yposi << "y,";
-    csvFile << xposi - lastX << "deltax,";
-    csvFile << yposi - lastY << "deltay,";
-    csvFile << currentTime << "time,";
+    csvFile << currentFrame << ",";
+    csvFile << xposi << ",";
+    csvFile << yposi << ",";
+    csvFile << xposi - lastX << ",";
+    csvFile << yposi - lastY << ",";
+    csvFile << currentTime << ",";
     csvFile << "\n";
 
     lastX = xposi;
