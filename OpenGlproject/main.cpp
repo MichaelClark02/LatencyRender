@@ -28,8 +28,8 @@ void updateFPS(GLFWwindow* window) {
     
     glfwGetCursorPos(window, &xposi, &yposi);
 
-    /*nbFrames++;
-    currentTime = glfwGetTime();*/
+    nbFrames++;
+    currentTime = glfwGetTime();
 
     csvFile << currentFrame << ",";
     csvFile << xposi << ",";
@@ -43,12 +43,12 @@ void updateFPS(GLFWwindow* window) {
     lastY = yposi;
 
     
-    /*if (currentTime - lastTime >= 1.0) {
+    if (currentTime - lastTime >= 1.0) {
         
-        printf("fps: (%d)\n", nbFrames);
+        printf("fps: (%d %f)\n", nbFrames, glfwGetTime());
         nbFrames = 0;
         lastTime += 1.0;
-    }*/
+    }
 }
 double lastMouseTime = 0;
 
@@ -60,8 +60,8 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {
-    if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
-        Sleep(1000);
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+        Sleep(5000);
 }
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -127,8 +127,6 @@ int main() {
         // Poll for events
         glfwPollEvents();
         currentFrame++;
-        
-        
     }
     csvFile.close();
     // Clean up
