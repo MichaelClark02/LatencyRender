@@ -54,12 +54,21 @@ double lastMouseTime = 0;
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
     //printf("Mouse Position: (%f, %f)\n", xpos, ypos);
+    
+
 }
+
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+{
+    if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+        Sleep(1000);
+}
+
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
-        //glfwDestroyWindow(window);
-        glfwTerminate();
+        glfwDestroyWindow(window);
+        //glfwTerminate();
     }
         
 }
@@ -75,13 +84,16 @@ int main() {
     //
     // 
     //glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_FALSE);
-    glfwWindowHint(GLFW_RED_BITS, 0);
+    /*glfwWindowHint(GLFW_RED_BITS, 0);
     glfwWindowHint(GLFW_GREEN_BITS, 0);
     glfwWindowHint(GLFW_BLUE_BITS, 0);
     glfwWindowHint(GLFW_ALPHA_BITS, 0);
     glfwWindowHint(GLFW_SAMPLES, 0);
     glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);*/
+
+    
+
     // Create a window and OpenGL context
     //GLFWwindow* window = glfwCreateWindow(640, 480, "OpenGL Program", NULL, NULL);
     GLFWwindow* window = glfwCreateWindow(1920, 1080, "Latency Render", glfwGetPrimaryMonitor(), NULL);
@@ -100,6 +112,8 @@ int main() {
     //glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetKeyCallback(window, key_callback);
 
+
+    glfwSetMouseButtonCallback(window, mouse_button_callback);
     // Enable vsync
     glfwSwapInterval(0);
 
@@ -108,10 +122,13 @@ int main() {
     while (!glfwWindowShouldClose(window)) {
         // Calculate FPS and update csvFile
         updateFPS(window);
+
+        glfwSwapBuffers(window);
         // Poll for events
         glfwPollEvents();
         currentFrame++;
-        glfwSwapBuffers(window);
+        
+        
     }
     csvFile.close();
     // Clean up
